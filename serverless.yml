@@ -1,0 +1,82 @@
+
+service:
+  name: ${self:custom.serviceName}
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+plugins:
+  - serverless-apigw-binary
+  - serverless-offline
+  - serverless-dotenv-plugin
+  - serverless-s3-local
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: us-east-2
+  memorySize: 2048
+  timeout: 15
+  environment: 
+
+
+custom:
+  serviceName: tis-serverless-backend
+  stage: ${opt:stage, self:custom.defaultStage}
+  bucket: dynamic-image-resizing
+  defaultStage: dev
+  stages:
+    - ${opt:stage}
+    - dev
+    - production
+  apigwBinary:
+    types:
+      - "*/*"
+  s3:
+    # Uncomment the following line only if you want to specify host address of S3 service.
+    # adress: 0.0.0.0
+    # Uncomment the following line only if you want to specify S3 server address.
+    # Ordinary, this value is localhost. But you can modify this value to use other S3 server.
+    # host: 0.0.0.0
+    port: 8000
+    directory: ./tmp  # this directory must be already created.
+    # Uncomment the first line only if you want to use cors with specified policy
+    # Uncomment the second line only if you don't want to use cors
+    # Not uncomment the these lines only if your wanto use cors with default policy
+    # cors: relative/path/to/your/cors.xml
+    # website: relative/path/to/your/website.xml
+    # Uncomment only if you already have a S3 server running locally
+    # noStart: true
+
+# resources:
+#   Resources:
+#     NewResource:
+#       Type: AWS::S3::Bucket
+#       Properties:
+#         BucketName: sls-app-resources-bucket
+
+
+functions:
+  app:
+    handler: src/app.server # reference the file and exported method
+    events: # events trigger lambda functions
+      - http: # this is an API Gateway HTTP event trigger
+          path: /
+          method: ANY
+          cors: true
+      - http: # all routes get proxied to the Express router
+          path: /{proxy+}
+          method: ANY
+          cors: true
+  webhook:
+    handler: src/app.webhook
+    events:
+      - http:
+         method: GET
+         path: webhook       
+  # s3hook:
+  #   handler: src/app.s3hook
+  #   events:
+  #     - s3: sls-app-resources-bucket
+  #       event: s3:*

@@ -15,8 +15,6 @@ module.exports = require('knex')({
             console.log('AFTER CREATE DB CONNECTION');
             await conn.query('SET timezone="UTC";');
             done(null, conn);
-            console.log('AFTER CREATE DB CONNECTION - 2');
-            return done;
         }
     },
     migrations: {

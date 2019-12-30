@@ -12,7 +12,6 @@ const indexRouter = require('./routes/index');
  */
 const app = express();
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -83,7 +82,8 @@ app.use((err, req, res, next) => {
 
 const server = sls(app);
 module.exports.server = async (event, context) => {
-  context.callbackWaitsForEmptyEventLoop = false;
+  // This will allow us to freeze open connections to a database
+  // context.callbackWaitsForEmptyEventLoop = false;
   console.log('Remaining time: ', context.getRemainingTimeInMillis())
   console.log('Function name: ', context.functionName)
   const result = await server(event, context);

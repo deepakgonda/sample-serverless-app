@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/app.js",
   "scripts": {
-    "start": "NODE_ENV=local sls offline",
+    "start": "DEBUG=knex:* NODE_ENV=local sls offline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

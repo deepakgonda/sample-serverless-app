@@ -2,8 +2,7 @@ const knex = require('../db/knex');
 
 const usersController = {
     list: async (req, res) => {
-        const users = await knex.select().from('users');
-
+       
         let reqData = req.query;
 
         let pagination = {};
@@ -11,7 +10,6 @@ const usersController = {
         let page = reqData.current_page || 1;
         if (page < 1) page = 1;
         let offset = (page - 1) * per_page;
-
 
         let [total, rows] = await Promise.all([
             knex.count('* as count').from("users").first(),
@@ -31,7 +29,6 @@ const usersController = {
         res.status(200).json({
             data: {
                 users: pagination,
-                // currentUser: req.me
             }
         });
     },

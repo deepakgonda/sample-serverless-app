@@ -17,7 +17,7 @@
     "array-compare": "^2.0.0",
     "async-parallel": "^1.2.3",
     "aws-sdk": "^2.315.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
     "express": "^4.17.1",

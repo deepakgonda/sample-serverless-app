@@ -29,7 +29,7 @@
     "knex": "^0.19.5",
     "knex-dynamic-connection": "^1.0.0",
     "knex-paginator": "^2.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",

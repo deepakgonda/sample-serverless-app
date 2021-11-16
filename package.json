@@ -16,7 +16,7 @@
     "@hapi/joi": "^15.1.0",
     "array-compare": "^2.0.0",
     "async-parallel": "^1.2.3",
-    "aws-sdk": "^2.315.0",
+    "aws-sdk": "^2.814.0",
     "bcrypt": "^3.0.6",
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
